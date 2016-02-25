@@ -1,0 +1,72 @@
+import("s626_task");
+
+displayComponentTypes();
+
+loadComponent("s626", "S626_task");
+
+#prepare driver
+#you need to pass bus and slot
+#if you are using only one Sensoray 
+#you can temporarily pass 0 and 0
+s626.prepareDriver("analogy0", 6, 1);
+
+#use logic alternative to set which 
+#kind of data will be published
+#0x01 ADC
+#0x02 ENC
+#0x04 DIO
+s626.setActivePublishing(0x04);
+
+#set initial configuration of DIO
+#after seting this they is no possibility of 
+#reconfiguration!
+#by setting 1 on mask you select ports which
+#will behave as outputs and then 
+#corresponding value will affect the selected
+#output ports
+#keep in mind that mask and value 
+#have atomic effect on the ADC which
+#means each bit position corresponds to 
+#desired channel
+var array InitDIO = array(6);
+InitDIO[0] = double(0x0000); #bank 0, mask
+InitDIO[1] = double(0x0000); #bank 0, value
+InitDIO[2] = double(0x0000); #bank 1, mask
+InitDIO[3] = double(0x0000); #bank 1, value
+InitDIO[4] = double(0x0000); #bank 2, mask
+InitDIO[5] = double(0x0000); #bank 2, value
+s626.setInitialDIO(InitDIO);
+
+#this describes which ADC channels will be 
+#read
+s626.setInitialADC(0x00);
+
+#this describes which ENC channels will be 
+#read
+s626.setInitialENC(0x00);
+
+#prepare all encoders
+s626.prepareAllENC();
+
+#set range for ADC selected channels
+#channels, range
+#bit with value of 1 in range sets ADC channel to +/- 10V range
+#bit with value of 0 in range sets ADC channel to +/-  5V range
+s626.setrangeADC(0xFFFF, 0xFFFF);
+
+#period of the task
+#remember to set it to real-time
+#reading from Sensoray ports is independent and is set to 1kHz
+#you can change it in source code
+s626.setPeriod(0.001);
+
+#while connecting ports requiring queue use
+#structure:
+
+#var ConnPolicy cp
+#cp.size = 10;
+#cp.type = CIRCULAR_BUFFER
+#cp.lock_policy = LOCKED;
+#connect("compA.y1", "compB.u1", cp); 
+
+#s626.start();

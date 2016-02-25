@@ -1,0 +1,42 @@
+import("s626_task");
+
+displayComponentTypes();
+
+loadComponent("s626a", "S626_task");
+loadComponent("s626b", "S626_task");
+
+#prepare driver
+s626a.prepareDriver("analogy0", 6, 0);
+s626b.prepareDriver("analogy1", 6, 1);
+
+#use logic alternative to set which 
+#kind of data will be published
+#0x01 ADC
+#0x02 ENC
+#0x04 DIO
+s626a.setActivePublishing(0x04);
+s626b.setActivePublishing(0x04);
+
+#prepare encoders
+s626a.prepareAllENC();
+
+s626b.prepareAllENC();
+#set range for ADC
+s626a.setrangeADC(0xFFFF, 0xFFFF);
+
+s626a.setPeriod(0.01);
+
+s626b.setrangeADC(0xFFFF, 0xFFFF);
+
+s626b.setPeriod(0.01);
+
+#while connecting ports requiring queue use
+#structure:
+
+#var ConnPolicy cp
+#cp.size = 10;
+#cp.type = CIRCULAR_BUFFER
+#cp.lock_policy = LOCKED;
+#connect("compA.y1", "compB.u1", cp); 
+
+#s626.start();

@@ -1,0 +1,13 @@
+*.log
+typekit/*
+build/*
+lib/*
+Debug/*
+*.pc
+html/*
+latex/*
+*~
+.cproject
+.project
+.settings/
+.tb_history

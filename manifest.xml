@@ -1,0 +1,11 @@
+<package>
+    <description brief="Orocos s626_task Component package">
+        This package contains the components of the s626_task package
+    </description>
+    <!--NOTE: set the license and author before you publish this code-->
+    <license></license>
+    <author>Wojciech Domski</author>
+    <rosdep name="rtt" />
+    <rosdep name="orogen" />
+</package>
+

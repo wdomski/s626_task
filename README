@@ -1,0 +1,14 @@
+/**
+ * \mainpage S626_task Manual
+ *
+ * \section intro_sec Introduction
+ *
+ * This is the documentation for OROCOS component S626_task.
+ * This component can connect with the Sesnoray 626 I/O board via 
+ * real-time driver prepared for Xenomai using Analogy interface.
+ * 
+ * Below examplary OROCOS deployer script is included to 
+ * show how to run the component in OROCOS system
+ * 
+ * \include s626.ops
+ */
